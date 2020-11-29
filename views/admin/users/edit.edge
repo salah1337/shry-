@@ -1,0 +1,190 @@
+@layout('admin.layout')
+
+@section('content')
+	<div class='container'>
+		<div class='text-center'>
+			<img src="{{ user.avatar }}" width="100" height="100">
+		</div>
+		<table class='table no-datatables'>
+			<tr>
+				<td>#</td>
+				<td>{{user.id}}</td>
+			</tr>
+			<tr>
+				<td>Discord ID</td>
+				<td>{{user.discord_id}}</td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td>{{user.email}}</td>
+			</tr>
+			<tr>
+				<td>Discord Username</td>
+				<td>{{user.username}}</td>
+			</tr>
+			<tr>
+				<td>Binded License Key</td>
+				<td>
+					@if(binded_license_key)
+						<a href="{{ route('admin.license_keys.view', {id: binded_license_key.id}) }}">{{ binded_license_key.license_key }}</a>
+					@else
+						N/A
+					@endif
+				</td>
+			</tr>
+			<tr>
+				<td>Owned License Key(s)</td>
+				<td>
+					@if(owned_license_keys.length)
+						@each(owned_license_key in owned_license_keys)
+							<a href="{{ route('admin.license_keys.view', {id: owned_license_key.id}) }}">{{ owned_license_key.license_key }}</a> 
+						@endeach
+					@else
+						N/A
+					@endif
+				</td>
+			</tr>
+			<tr>
+				<td>Role</td>
+				<td>
+					<select data-user-id='{{ user.id }}' id='user_role'>
+						<option 
+							value='USER' 
+							@if(user.role == "USER")
+								selected
+							@endif 
+						>USER</option>
+						<option 
+							value='DEV' 
+							@if(user.role == "DEV")
+								selected 
+							@endif 
+						>DEV</option>
+						<option 
+							value='ADMIN' 
+							@if(user.role == "ADMIN")
+								selected
+							@endif 
+						>ADMIN</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Raw Data</td>
+				<td>
+					<textarea class='form-control'>{{user.raw_data}}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>Created At</td>
+				<td>{{user.created_at}}</td>
+			</tr>
+		</table>
+
+		@if(subscription)
+			<br>
+			<center>
+				<h3>Subscription Details</h3>
+			</center>
+			<table class='table no-datatables'>
+				<tr>
+					<td>#</td>
+					<td>{{subscription.id}}</td>
+				</tr>
+				<tr>
+					<td>Stripe ID</td>
+					<td>
+						<a href="https://dashboard.stripe.com/subscriptions/{{subscription.subscription_id}}">{{subscription.subscription_id}}</a>
+					</td>
+				</tr>
+				<tr>
+					<td>Status</td>
+					<td>{{subscription.status}}</td>
+				</tr>
+				<tr>
+					<td>Plan ID</td>
+					<td>{{subscription.plan_id}}</td>
+				</tr>
+				<tr>
+					<td>Price ID</td>
+					<td>{{subscription.price_id}}</td>
+				</tr>
+				<tr>
+					<td>Stock ID</td>
+					<td>
+						<a href="{{ route('admin.stocks.view', {id: subscription.stock_id})}}">{{subscription.stock_id}}</a>
+					</td>
+				</tr>
+				<tr>
+					<td>Ends At</td>
+					<td>{{subscription.ends_at}}</td>
+				</tr>
+				<tr>
+					<td>Resulted License Key</td>
+					<td>
+						@if(subscription.license_key_id)
+						  <a href="{{ route('admin.license_keys.view', { id: subscription.license_key_id }) }}">{{ subscription.license_key_id }}</a>
+						@else
+							N/A
+						@endif
+					</td>
+				</tr>
+				<tr>
+					<td>Created At</td>
+					<td>{{subscription.created_at}}</td>
+				</tr>
+			</table>
+		@endif
+
+		@if(invoices.length)
+			<br>
+			<center>
+				<h3>Invoices (onetime payments)</h3>
+			</center>
+			@each(invoice in invoices)
+				<table class='table no-datatables'>
+					<tr>
+						<td>#</td>
+						<td>{{ invoice.id }}</td>
+					</tr>
+					<tr>
+						<td>Stripe ID</td>
+						<td>{{ invoice.invoice_id }}</td>
+					</tr>
+					<tr>
+						<td>Status</td>
+						<td>{{ invoice.status }}</td>
+					</tr>
+					<tr>
+						<td>Stock ID</td>
+						<td>
+							<a href="{{ route('admin.stocks.view', {id: invoice.stock_id})}}">{{invoice.stock_id}}</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Resulted License Key</td>
+						<td>
+							@if(invoice.license_key_id)
+							  <a href="{{ route('admin.license_keys.view', { id: invoice.license_key_id }) }}">{{ invoice.license_key_id }}</a>
+							@else
+								N/A
+							@endif
+						</td>
+					</tr>
+				</table>
+			@endeach
+		@endif
+	</div>
+@endsection
+
+@section('js')
+	<script type="text/javascript">
+		$(document).on('change', '#user_role', function(e) {
+			axios.post('{{ route('admin.users.edit', { id: user.id }) }}', { role: $(this).val() }).then((response) => {
+				if(response.data.success){
+					alert("Successfully edited user role");
+				}
+			});
+		});
+	</script>
+@endsection

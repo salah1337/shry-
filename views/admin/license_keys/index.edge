@@ -1,0 +1,64 @@
+@layout('admin.layout')
+
+@section('content')
+	<div class="list-group list-group-horizontal">
+		<a href='{{ route('admin.license_keys.create') }}' class='list-group-item'>
+			Create Key
+		</a>
+	</div>
+	<hr>
+	<table class='table'>
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>License Key</th>
+				<th>User ID</th>
+				<th>Owner ID</th>
+				<th>Expiration Date</th>
+				<th>Type</th>
+				<th>Is Disabled?</th>
+				<th>Created At</th>
+				<th>Updated At</th>
+			</tr>
+		</thead>
+		<tbody>
+			@each(license_key in license_keys)
+				<tr>
+					<td>
+						<a href="{{ route('admin.license_keys.view', { id: license_key.id }) }}">{{ license_key.id }}</a>
+					</td>
+					<td>
+						{{ license_key.license_key }}
+					</td>
+					<td>
+						@if(license_key.user_id)
+							<a href="{{route('admin.users.view', {id: license_key.user_id})}}">
+								{{ license_key.user.username }} | {{ license_key.user.discord_id }}
+							</a>
+						@else
+							N/A
+						@endif
+					</td>
+					<td>
+						@if(license_key.owner_id)
+							<a href="{{route('admin.users.view', {id: license_key.owner_id})}}">
+								{{ license_key.owner.username }} | {{ license_key.owner.discord_id }}
+							</a>
+						@else
+							N/A
+						@endif
+					</td>
+					<td>
+						{{license_key.expiration_date}}
+					</td>
+					<td>{{ license_key.type }}</td>
+					<td>
+						{{license_key.is_disabled}}
+					</td>
+					<td>{{ license_key.created_at }}</td>
+					<td>{{ license_key.updated_at }}</td>
+				</tr>
+			@endeach
+		</tbody>
+	</table>
+@endsection

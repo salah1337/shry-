@@ -1,0 +1,66 @@
+@layout('user.layout')
+
+@section('content')
+<div class="content">
+    <div class="navBar">
+        <div class="menuBtn">
+            
+        </div>
+        <div class="userBtn">
+            <img src="./chadmantizmo.jpg" alt="">
+            <span>{{auto.user.username}}</span>
+        </div>
+    </div>
+    <div class="activate">
+        <div class="activate">
+        @if(user._license_key)
+
+        <!-- <div class="customAlert primaryAlert">You already have a license key binded to your account.</div>
+        <div class="customAlert successAlert">You already have a license key binded to your account.</div>
+        <div class="customAlert notifyAlert">You already have a license key binded to your account.</div> -->
+        <div class="customAlert dangerAlert">You already have a license key binded to your account.</div>
+
+        @endif
+        <div class="panel">
+            <div class="panel-title">Activate a license key</div>
+            <form method="POST">
+                
+                <input type="text">
+                <button type="submit" class="panel-button">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('css')
+	@super
+	<style type="text/css">
+		.card {
+			margin: 0px;
+			margin-top: 10px;
+			padding: 1em;
+			background: transparent;
+			border: 1px solid #515485;
+		}
+
+		.custom-card-title {
+			color: white;
+			text-transform: uppercase;
+			font-weight: bold;
+			font-size: 25px;
+			padding-bottom: 1em;
+		}
+
+		.card-body {
+			margin-top:0px;
+			padding-top:0px;
+			padding-left:0px;
+			color: #177ee1;
+		}
+
+		.display-block {
+			display:block;
+		}
+	</style>
+@endsection

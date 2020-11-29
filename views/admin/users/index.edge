@@ -1,0 +1,79 @@
+@layout('admin.layout')
+
+@section('content')
+	<table class='table'>
+		<thead>
+			<tr>
+				<th></th>
+				<th>#</th>
+				<th>Email</th>
+				<th>Role</th>
+				<th>Discord ID</th>
+				<th>License Key</th>
+				<th>Discord Username</th>
+				<th>Raw Data</th>
+			</tr>
+		</thead>
+		<tbody>
+			@each(user in users)
+				<tr>
+					<td><img src="{{ user.avatar }}" width="25" height="25"></td>
+					<td>
+						<a href="{{ route('admin.users.view', { id: user.id }) }}">{{ user.id }}</a>
+					</td>
+					<td>{{ user.email }}</td>
+					<td>
+						<select data-user-id='{{ user.id }}' id='user_role'>
+							<option 
+								value='USER' 
+								@if(user.role == "USER")
+									selected
+								@endif 
+							>USER</option>
+							<option 
+								value='DEV' 
+								@if(user.role == "DEV")
+									selected 
+								@endif 
+							>DEV</option>
+							<option 
+								value='ADMIN' 
+								@if(user.role == "ADMIN")
+									selected
+								@endif 
+							>ADMIN</option>
+						</select>
+					</td>
+					<td>{{ user.discord_id }}</td>
+					<td>
+						@if(user.license_key)
+							<a href="{{route('admin.license_keys.view', { id: user.license_key.id })}}">
+								{{user.license_key.license_key}}
+							</a>
+						@else
+							N/A
+						@endif
+					</td>
+					<td>{{ user.username }}</td>
+					<td>
+						<textarea class='form-control'>{{ user.raw_data }}</textarea>
+					</td>
+				</tr>
+			@endeach
+		</tbody>
+	</table>
+@endsection
+
+@section('js')
+	<script type="text/javascript">
+		$(document).on('change', '#user_role', function(e) {
+			axios.post('/admin/users/' + $(this).data('user-id'), { role: $(this).val() }).then((response) => {
+				if(response.data.success){
+					alert("Successfully edited user role");
+				}
+			}).catch(e => {
+				alert("Something wrong happened.");
+			});
+		});
+	</script>
+@endsection

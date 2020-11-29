@@ -1,0 +1,25 @@
+body {
+	background-color: #21202B;
+}
+
+.navbar .navbar-nav .nav-item .nav-link:after {
+	content: "";
+	padding-left: 20px;
+}
+
+.navbar .navbar-nav .nav-item:last-child .nav-link:after {
+	content: "";
+	padding-left: 0px;
+}
+
+.transparent-form-control {
+	background: transparent;
+}
+
+.transparent-form-control:focus {
+	background: transparent;
+}
+
+.transparent-form-control::placeholder {
+	color: white;
+}

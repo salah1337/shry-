@@ -1,0 +1,50 @@
+@layout('user.layout')
+
+@section('content')
+	<div class='container'>
+		<div class='card'>
+			<div class='custom-card-title' style='text-align: center;'>Are you sure you want to cancel your subscription?</div>
+			<div class='card-body'>
+				<form method='POST' action='{{ route('user.cancel_subscription') }}'>
+					{{ csrfField() }}
+					<button class='btn btn-danger'>Yes, cancel my subscription</button>
+
+					<a href="{{ route('dashboard') }}" class='float-right btn btn-primary'>No, keep my subscription</a>
+				</form>
+			</div>
+		</div>
+	</div>
+@endsection
+
+
+@section('css')
+	@super
+	<style type="text/css">
+		.card {
+			margin: 0px;
+		    margin-top: 10px;
+		    padding: 1em;
+		    background: transparent;
+		    border: 1px solid #515485;
+		}
+
+		.custom-card-title {
+			color: white;
+			text-transform: uppercase;
+			font-weight: bold;
+			font-size: 25px;
+			padding-bottom: 1em;
+		}
+
+		.card-body {
+			margin-top:0px;
+			padding-top:0px;
+			padding-left:0px;
+			color: #177ee1;
+		}
+
+		.display-block {
+			display:block;
+		}
+	</style>
+@endsection

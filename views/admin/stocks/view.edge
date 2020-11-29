@@ -1,0 +1,50 @@
+@layout('admin.layout')
+
+@section('content')
+	<div class='container'>
+		<table class='table no-datatables'>
+			<tr>
+				<td>Password</td>
+				<td>{{stock.password}}</td>
+			</tr>
+			<tr>
+				<td>Count</td>
+				<td>{{stock.count}}</td>
+			</tr>
+			<tr>
+				<td>Initial Count</td>
+				<td>{{stock.initial_count}}</td>
+			</tr>
+			<tr>
+				<td>Type</td>
+				<td>{{stock.type}}</td>
+			</tr>
+			<tr>
+				<td>Plan ID</td>
+				<td>{{stock.stripe_plan_id}}</td>
+			</tr>
+			<tr>
+				<td>Price ID</td>
+				<td>{{stock.stripe_price_id}}</td>
+			</tr>
+			<tr>
+				<td>Discord Roles</td>
+				<td>{{stock.discord_roles}}</td>
+			</tr>
+			<tr>
+				<td>Auto Bind</td>
+				<td>{{!!stock.auto_bind}}</td>
+			</tr>
+
+			<tr>
+				<td>Created At</td>
+				<td>{{stock.created_at}}</td>
+			</tr>
+		</table>
+		<hr>
+		<form action='{{ route('admin.stocks.destroy', { id: stock.id }) }}?_method=DELETE' method='POST'>
+			{{ csrfField() }}
+			<button class='btn btn-danger'>Delete</button>
+		</form>
+	</div>
+@endsection

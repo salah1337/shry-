@@ -1,0 +1,25 @@
+@layout('admin.layout')
+
+@section('content')
+	<form method='POST' action='{{ route('admin.tools.store') }}' >
+		{{ csrfField() }}
+		<div class="form-group">
+			<label for="title">Title</label>
+			<input type="text" class="form-control" name='title' id="title">
+		</div>
+		<div class="form-group">
+			<label for="sub_title">Sub title</label>
+			<input type="text" class="form-control" name='sub_title' id="sub_title">
+		</div>
+		<div class="form-group">
+			<label for="title">Download Link</label>
+			<input type="text" class="form-control" name='download_link' id="title">
+		</div>
+		<div class="form-group">
+			<label for="title">Guide Link</label>
+			<input type="text" class="form-control" name='guide_link' id="title">
+		</div>
+
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+@endsection

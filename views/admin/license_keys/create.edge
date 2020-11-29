@@ -1,0 +1,18 @@
+@layout('admin.layout')
+
+@section('content')
+	<form method='POST' action='{{ route('admin.license_keys.store') }}' >
+		{{ csrfField() }}
+
+		<div class="form-group">
+			<label for="license_key">License Key <small>(use this pregenerated key or edit)</small></label>
+			<input type="text" class="form-control" value='{{ pregenerated_key }}' name='license_key' id="license_key">
+		</div>
+		<div class="form-group">
+			<label for="expiration_date">Expiration Date <small>(leave empty for lifetime keys)</small></label>
+			<input type="text" class="form-control" name='expiration_date' id="expiration_date">
+		</div>
+
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+@endsection

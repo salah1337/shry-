@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg">
+	<ul class='navbar-nav flex-row ml-md-auto d-none d-md-flex'>
+		<li class='nav-item'>
+			<a href="{{ route('admin.dashboard') }}" class='nav-link mr-md-2'>Dashboard</a>
+		</li>
+
+		<li class='nav-item'>
+			<a href="{{ route('admin.users.index') }}" class='nav-link mr-md-2'>Users Management</a>
+		</li>
+		<li class='nav-item'>
+			<a href="{{ route('admin.license_keys.index') }}" class='nav-link mr-md-2'>Key Management</a>
+		</li>
+		<li class='nav-item'>
+			<a href="{{ route('admin.stocks.index') }}" class='nav-link mr-md-2'>Restock Management</a>
+		</li>
+		<li class='nav-item'>
+			<a href="{{ route('admin.tools.index') }}" class='nav-link mr-md-2'>Tools Management</a>
+		</li>
+
+
+		<li class='nav-item'>
+			<a href="{{ route('logout') }}" class='nav-link mr-md-2'>Log Out</a>
+		</li>
+	</ul>
+</nav>
+
+@section('css')
+	<style type="text/css">
+		.navbar .navbar-nav .nav-item .nav-link:after {
+			content: "/";
+			padding-left: 20px;
+		}
+		
+		.navbar .navbar-nav .nav-item:last-child .nav-link:after {
+			content: "";
+			padding-left: 0px;
+		}
+
+	</style>
+@endsection

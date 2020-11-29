@@ -1,0 +1,73 @@
+@layout('user.layout')
+
+@section('content')
+	<div class='container'>
+		@if(tools.length == 0)
+		  <h1 class='text-center text-white'>No tools available to download</h1>
+		@else
+			@each(tool in tools)
+				<div class='card'>
+					<div class='card-body tool-container'>
+						<div>
+							<h1 class='tool-title'>{{ tool.title }}</h1>
+							<span class='tool-subtitle'>{{ tool.sub_title }}</span>
+						</div>
+						<div>
+							<a href='{{ tool.download_link }}' class='btn btn-primary tool-link'>Download</a>
+							<a href='{{ tool.guide_link }}' class='btn btn-primary tool-link'>Guide</a>
+						</div>
+					</div>
+				</div>
+			@endeach
+		@endif
+	</div>
+@endsection
+
+@section('css')
+	@super
+	<style type="text/css">
+		.card {
+			margin: 0px;
+			margin-top: 10px;
+			padding: 1em;
+			background: transparent;
+			border: 1px solid #515485;
+		}
+
+		.tool-container {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.tool-link {
+			padding: 20px;
+			font-size: 20px;
+		}
+
+		.tool-title {
+			color: #1ce6e6;
+			text-transform: uppercase;
+			font-weight: bold;
+			font-size: 30px;
+			font-style: italic;
+		}
+
+		.card-body {
+			margin-top:0px;
+			padding-top:0px;
+			padding-left:0px;
+			padding-bottom: 0px;
+
+			color: #177ee1;
+		}
+
+		.display-block {
+			display:block;
+		}
+
+		.payment-actions {
+			position:absolute;
+			bottom:15px;
+		}
+	</style>
+@endsection

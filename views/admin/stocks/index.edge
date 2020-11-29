@@ -1,0 +1,44 @@
+@layout('admin.layout')
+
+@section('content')
+	<div class="list-group list-group-horizontal">
+		<a href='{{ route('admin.stocks.create') }}' class='list-group-item'>
+			Create Stock
+		</a>
+	</div>
+	<hr>
+	<table class='table'>
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Password</th>
+				<th>Initial count</th>
+				<th>Count</th>
+				<th>Type</th>
+				<th>Stripe Price ID</th>
+				<th>Stripe Plan ID</th>
+				<th>AutoBind</th>
+				<th>Created At</th>
+			</tr>
+		</thead>
+		<tbody>
+			@each(stock in stocks)
+				<tr>
+					<td>
+						<a href="{{ route('admin.stocks.view', { id: stock.id }) }}">{{ stock.id }}</a>
+					</td>
+					<td>
+						<a href="{{ route('admin.stocks.view', { id: stock.id }) }}">{{ stock.password }}</a>
+					</td>
+					<td>{{ stock.initial_count }}</td>
+					<td>{{ stock.count }}</td>
+					<td>{{ stock.type }}</td>
+					<td>{{ stock.stripe_price_id }}</td>
+					<td>{{ stock.stripe_plan_id }}</td>
+					<td>{{ !!stock.auto_bind }}</td>
+					<td>{{ stock.created_at }}</td>
+				</tr>
+			@endeach
+		</tbody>
+	</table>
+@endsection

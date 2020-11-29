@@ -1,0 +1,44 @@
+@layout('admin.layout')
+
+@section('content')
+	<form method='POST' action='{{ route('admin.stocks.store') }}' >
+		{{ csrfField() }}
+
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input type="text" class="form-control" name='password' id="password">
+		</div>
+
+		<div class="form-group">
+			<label for="count">Count</label>
+			<input type="number" class="form-control" name='count' id="count">
+		</div>
+
+		<div class="form-group">
+			<label for="stripe_plan_id">Striple PLAN Id</label>
+			<input type="text" class="form-control" name='stripe_plan_id' id="stripe_plan_id" placeholder="prod_...">
+		</div>
+
+		<div class="form-group">
+			<label for="stripe_price_id">Stripe PRICE Id</label>
+			<input type="text" class="form-control" name='stripe_price_id' id="stripe_price_id" placeholder='price_...'>
+		</div>
+
+		<div class="form-group">
+			<label for="discord_roles">Discord Roles <small>(Separated by comma)</small></label>
+			<input type="text" class="form-control" name='discord_roles' id="discord_roles">
+		</div>
+
+		<div class="form-group">
+			<label for="type">Type</label>
+			<input type="text" class="form-control" name='type' id="type">
+		</div>
+
+		<div class='form-check'>
+			<input type="checkbox" class="form-check-input" name='autobind' id="autobind">
+			<label for="autobind">Auto Bind key to the user's account after purchasing</label>
+		</div>
+
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+@endsection

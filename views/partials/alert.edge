@@ -1,0 +1,5 @@
+@if(flashMessage('alert'))
+	<div class="alert {{ flashMessage('type') == 'error' ? 'alert-danger' : 'alert-primary' }}" role="alert">
+		{{ flashMessage('alert') }}
+	</div>
+@endif

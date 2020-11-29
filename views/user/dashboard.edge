@@ -1,0 +1,162 @@
+@layout('user.layout')
+
+@section('content')
+<div class="content">
+    <div class="navBar">
+        <div class="menuBtn">
+            {{--  where that close side bar btn was  --}}
+        </div>
+        <div class="userBtn">
+            <img src="./chadmantizmo.jpg" alt="">
+            <span>{{auto.user.username}}</span>
+        </div>
+    </div>
+    <div class="dashboard">
+        <div class="licenseKey panel">
+            <div class="panel-title">License Key</div>
+            <div class="panel-text">
+                @if(license_key)
+                    {{ license_key.license_key }}
+                @else
+                    Not available
+                @endif
+            </div>
+            @if(license_key)
+                <div href='{{ route('user.reset_key') }}' class="panel-button">
+                    Reset
+                </div>
+                {{--  <div href='{{ route('user.unbind_key') }}' class="panel-button">
+                    Unbind
+                </div>  --}}
+            @endif
+        </div>
+        <div class="discord panel">
+            <div class="panel-title">{{ auth.user.username }}
+            </div>
+            @if(license_key)
+            <div class="panel-text">Join our discord to stay up to date!
+            </div>
+            <div class="panel-button">
+                Join Discord
+            </div>
+            @endif
+        </div>
+        <div class="payment panel">
+            <div class="panel-title">PAYMENT INFO
+            </div>
+            <div class="panel-text">VISA card ending with 4242 <br>
+                Next billing date: Wed Nov 25 2020 23:08:37 GMT+0100 (Central European Standard Time)
+            </div>
+            <div class="panel-button">
+                Change Card
+            </div>
+            <div class="panel-button">
+                Cancel Subscription
+            </div>
+        </div>
+        <div class="payment panel">
+            <div class="panel-title">PAYMENT HISTORY
+            </div>
+            @if()
+
+            <div class="panel-table head">
+                <div class="table-item table-item-lg">
+                    <div class="title">Payment Id</div>
+                </div>
+                <div class="table-item">
+                    <div class="title">Date</div>
+                </div>
+                <div class="table-item">
+                    <div class="title">Description</div>
+                </div>
+                <div class="table-item">
+                    <div class="title">Amount</div>
+                </div>
+            </div>
+            
+            @each(payment in payment_history.day)
+
+
+            <div class="panel-table row">
+                <div class="table-item table-item-lg">
+                    <div class="value">{{ payment.id }}</div>
+                </div>
+                <div class="table-item">
+                    <div class="value">{{ date(payment.created) }}</div>
+                </div>
+                <div class="table-item">
+                    <div class="value">{{ payment.description}}</div>
+                </div>
+                <div class="table-item">
+                    <div class="value">{{ payment.currency.toUppserCase() }} {{ payment.amount / 100 }} 
+                    
+                        @if(payment.status == 'failed')
+                        (Failed)
+                        @endif
+                        @if(payment.status == 'pending')
+                            (Pending)
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+
+            @endeach
+
+            @else
+                Not available
+            @endif
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('css')
+	<style type="text/css">
+		.card {
+			margin: 0px;
+		    margin-top: 10px;
+		    padding: 1em;
+		    background: transparent;
+		    border: 1px solid #515485;
+		    height: 95%;
+		}
+
+		.payment-history table tr th {
+			text-transform: uppercase;
+			color: #515485;
+		}
+		
+		.payment-history table tr td {
+			color: #1ce6e6;
+		}
+
+		.custom-card-title {
+			color: white;
+			text-transform: uppercase;
+			font-weight: bold;
+			font-size: 25px;
+		}
+
+		.card-body {
+			margin-top:0px;
+			padding-top:0px;
+			padding-left:0px;
+			padding-bottom:0px;
+			color: #177ee1;
+		}
+
+		.display-block {
+			display:block;
+		}
+
+		.custom-card-footer {
+			bottom:15px;
+			position: absolute;
+		}
+
+		.payment-failed td {
+			color: red !important;
+		}
+	</style>
+@endsection

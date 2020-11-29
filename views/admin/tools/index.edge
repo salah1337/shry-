@@ -1,0 +1,44 @@
+@layout('admin.layout')
+
+@section('content')
+	<div class="list-group list-group-horizontal">
+		<a href='{{route('admin.tools.create')}}' class="list-group-item">
+			Add Tool
+		</a>
+	</div>
+	<hr>
+	<table class='table'>
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Title</th>
+				<th>Sub title</th>
+				<th>Download</th>
+				<th>Guide</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			@each(tool in tools)
+				<tr>
+					<td>{{ tool.id }}</td>
+					<td>{{ tool.title }}</td>
+					<td>{{ tool.sub_title }}</td>
+					<td>{{ tool.download_link }}</td>
+					<td>{{ tool.guide_link }}</td>
+					<td>
+						<div class="list-group list-group-horizontal">
+							<form action='{{ route("admin.tools.destroy") }}' method='POST'>
+								{{ csrfField() }}
+								<input type="hidden" name="id" value='{{ tool.id }}'>
+								<button class="list-group-item list-group-item-danger">Delete</button>
+							</form>
+
+							<a href='{{ route('admin.tools.edit', { id: tool.id }) }}' class="list-group-item list-group-item-info">Edit</a>
+						</div>
+					</td>
+				</tr>
+			@endeach
+		</tbody>
+	</table>
+@endsection
